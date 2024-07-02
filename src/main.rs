@@ -1,5 +1,6 @@
 use std::{
     env::args,
+    fmt::Display,
     io::{self, BufRead},
 };
 
@@ -125,4 +126,33 @@ pub enum TokenType {
 
     // End of file
     Eof,
+}
+
+impl Display for TokenType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self)
+    }
+}
+
+impl Display for Literal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self)
+    }
+}
+
+#[derive(Debug)]
+pub struct Literal;
+
+#[derive(Debug)]
+pub struct Token {
+    ttype: TokenType,
+    lexeme: String,
+    literal: Literal,
+    line: usize,
+}
+
+impl Display for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} {} {}", self.ttype, self.lexeme, self.literal)
+    }
 }
