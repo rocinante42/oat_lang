@@ -18,13 +18,13 @@ fn main() {
             Err(m) => eprintln!("{} at line: {}", m.message, m.line),
         }
     } else {
-        run_prompt();
+        run_prompt().expect("Invalid prompt");
     }
 }
 
 fn run_file(path: &String) -> Result<(), OatError> {
     if let Ok(buffer) = std::fs::read_to_string(path) {
-        run(buffer.as_str());
+        run(buffer.as_str())?;
     } else {
         return Err(OatError {
             message: String::from("Error reading path"),
